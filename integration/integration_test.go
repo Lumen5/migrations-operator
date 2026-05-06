@@ -46,8 +46,8 @@ var _ = Describe("Integration", func() {
 		if extName == "" || image == "" {
 			Skip("Integration tests require $INTEGRATION_EXTERNAL_NAME and $INTEGRATION_IMAGE_NAME")
 		}
-		os.Setenv("API_HOSTNAME", fmt.Sprintf("%s:5000", extName))
-		os.Setenv("WAITER_IMAGE", image)
+		_ = os.Setenv("API_HOSTNAME", fmt.Sprintf("%s:5000", extName))
+		_ = os.Setenv("WAITER_IMAGE", image)
 
 		helper = suiteHelper.MustStart(
 			controllers.Migrator,

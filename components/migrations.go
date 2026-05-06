@@ -51,7 +51,7 @@ func Migrations() *migrationsComponent {
 	return &migrationsComponent{}
 }
 
-func (_ *migrationsComponent) GetReadyCondition() string {
+func (*migrationsComponent) GetReadyCondition() string {
 	return "MigrationsReady"
 }
 
@@ -335,7 +335,7 @@ func (comp *migrationsComponent) Reconcile(ctx *cu.Context) (cu.Result, error) {
 	return cu.Result{}, nil
 }
 
-func (_ *migrationsComponent) findOwners(ctx *cu.Context, obj *unstructured.Unstructured) ([]*unstructured.Unstructured, error) {
+func (*migrationsComponent) findOwners(ctx *cu.Context, obj *unstructured.Unstructured) ([]*unstructured.Unstructured, error) {
 	namespace := obj.GetNamespace()
 	owners := []*unstructured.Unstructured{}
 	for {
@@ -364,7 +364,7 @@ func (_ *migrationsComponent) findOwners(ctx *cu.Context, obj *unstructured.Unst
 	return owners, nil
 }
 
-func (_ *migrationsComponent) findSpecFor(ctx *cu.Context, obj *unstructured.Unstructured) map[string]interface{} {
+func (*migrationsComponent) findSpecFor(ctx *cu.Context, obj *unstructured.Unstructured) map[string]interface{} {
 	gvk := obj.GetObjectKind().GroupVersionKind()
 	switch fmt.Sprintf("%s/%s", gvk.Group, gvk.Kind) {
 	case "/Pod":

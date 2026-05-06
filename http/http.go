@@ -73,6 +73,6 @@ func (s *apiServer) Start(ctx context.Context) error {
 	return nil
 }
 
-func (_ *apiServer) NeedLeaderElection() bool {
+func (*apiServer) NeedLeaderElection() bool {
 	return false
 }
