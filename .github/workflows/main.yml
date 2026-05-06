@@ -30,15 +30,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+      # setup-envtest@release-0.20 (needed because release-0.16 hits the now-401 GCS URL)
+      # requires Go 1.23 to install. The actual tests must run on Go 1.20 because a
+      # transitive dep panics under Go 1.22+'s stricter base64.NewEncoding check.
       - uses: actions/setup-go@v6
         with:
-          # Bumped from project's go.mod minimum (1.20) so setup-envtest@release-0.20 builds.
-          # Newer setup-envtest is needed because release-0.16 still hits the now-401 GCS URL.
           go-version: "1.23"
       - name: Install envtest binaries
         run: |
           go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.20
           echo "KUBEBUILDER_ASSETS=$(setup-envtest use 1.30.0 -p path)" >> $GITHUB_ENV
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "1.20"
       - run: make test
 
   build:
