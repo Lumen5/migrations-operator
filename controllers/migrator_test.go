@@ -36,8 +36,8 @@ var _ = Describe("Migrator controller", func() {
 	var helper *cu.FunctionalHelper
 
 	BeforeEach(func() {
-		os.Setenv("API_HOSTNAME", "migrations-operator.migration-operator.svc")
-		os.Setenv("WAITER_IMAGE", "migrations-operator:latest")
+		_ = os.Setenv("API_HOSTNAME", "migrations-operator.migration-operator.svc")
+		_ = os.Setenv("WAITER_IMAGE", "migrations-operator:latest")
 		helper = suiteHelper.MustStart(Migrator, webhook.InitInjector)
 	})
 
